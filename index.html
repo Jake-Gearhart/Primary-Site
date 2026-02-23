@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<!--
+	Road Trip by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+--><html><head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Road Trip by TEMPLATED</title><meta charset="utf-8"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="assets/css/main.css"></head><body>
+
+<section id="banner" class="bg-img" data-bg="banner.jpg"><div class="inner">
+					<header><h1>Jake Gearhart</h1>
+                        <h2>Composer</h2>
+					</header></div>
+				<a href="#one" class="more">Learn More</a>
+			</section><!-- One --><section id="one" class="wrapper post bg-img" data-bg="banner2.jpg"><div class="inner">
+					<article class="box"><header><h2>About</h2>
+							<!-- <p>01.01.2017</p> -->
+						</header><div class="content">
+							<p>
+                                Jake Gearhart is a composer specializing in music for film, games, and other media.
+                            </p>
+						</div>
+						</article></div>
+				<!-- <a href="#two" class="more">Learn More</a> -->
+			</section><!-- Two -->
+            <!-- <section id="two" class="wrapper post bg-img" data-bg="banner5.jpg"><div class="inner">
+					<article class="box"><header><h2>Mus elit a ultricies at</h2>
+						</header><div class="content">
+							<p>Scelerisque enim mi curae erat ultricies lobortis donec velit in per cum consectetur purus a enim platea vestibulum lacinia et elit ante scelerisque vestibulum. At urna condimentum sed vulputate a duis in senectus ullamcorper lacus cubilia consectetur odio proin sociosqu a parturient nam ac blandit praesent aptent. Eros dignissim mus mauris a natoque ad suspendisse nulla a urna in tincidunt tristique enim arcu litora scelerisque eros suspendisse.</p>
+						</div>
+                    </article></div>
+			</section> -->
+            <section id="two" class="wrapper post bg-img" data-bg="score-background.svg"  style="background-color: rgb(223, 223, 223);">
+    <div class="inner">
+        <article class="box">
+            <header>
+                <!-- <h2>Title</h2> -->
+            </header>
+            <div class="content">
+                <div id="waveform" style="background: rgba(0,0,0,0.05); border-radius: 4px; margin-bottom: 1rem;"></div>
+                
+                <button id="playPause" style="margin-bottom: 2rem;">Play / Pause</button>
+
+                <!-- <p>[Description Here]</p> -->
+            </div>
+        </article>
+    </div>
+</section>
+
+<script type="module">
+import WaveSurfer from 'https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js'
+
+const wavesurfer = WaveSurfer.create({
+  container: '#waveform',
+  waveColor: '#aaaaaa',
+  progressColor: '#ffffff',
+  url: 'music/example.mp3', // Your file path
+  height: 100,
+  responsive: true,
+  borderRadius: 3,
+});
+
+// Handle Play/Pause button
+const playBtn = document.getElementById('playPause');
+
+playBtn.onclick = () => {
+    wavesurfer.playPause();
+
+    // Check if wavesurfer is actually playing
+    const isPlaying = wavesurfer.isPlaying();
+    
+    document.querySelectorAll('.score-overlay').forEach(el => {
+        if (isPlaying) {
+            el.classList.add('is-playing');
+        } else {
+            el.classList.remove('is-playing');
+        }
+    });
+};
+
+// Optional: Change button text based on state
+wavesurfer.on('play', () => playBtn.textContent = 'Pause');
+wavesurfer.on('pause', () => playBtn.textContent = 'Play');
+</script>
+            <!-- Three -->
+             <!-- <section id="three" class="wrapper post bg-img" data-bg="banner4.jpg"><div class="inner">
+					<article class="box"><header><h2>Varius a cursus aliquet</h2>
+						</header><div class="content">
+							<p>Scelerisque enim mi curae erat ultricies lobortis donec velit in per cum consectetur purus a enim platea vestibulum lacinia et elit ante scelerisque vestibulum. At urna condimentum sed vulputate a duis in senectus ullamcorper lacus cubilia consectetur odio proin sociosqu a parturient nam ac blandit praesent aptent. Eros dignissim mus mauris a natoque ad suspendisse nulla a urna in tincidunt tristique enim arcu litora scelerisque eros suspendisse.</p>
+						</div>
+						</article></div> -->
+			<!-- </section> -->
+            <!-- Four -->
+             <!-- <section id="four" class="wrapper post bg-img" data-bg="banner3.jpg"><div class="inner">
+					<article class="box"><header><h2>Luctus blandit mi lectus in nascetur</h2>
+							<p>10.30.2016</p>
+						</header><div class="content">
+							<p>Scelerisque enim mi curae erat ultricies lobortis donec velit in per cum consectetur purus a enim platea vestibulum lacinia et elit ante scelerisque vestibulum. At urna condimentum sed vulputate a duis in senectus ullamcorper lacus cubilia consectetur odio proin sociosqu a parturient nam ac blandit praesent aptent. Eros dignissim mus mauris a natoque ad suspendisse nulla a urna in tincidunt tristique enim arcu litora scelerisque eros suspendisse.</p>
+						</div>
+						<footer><a href="generic.html" class="button alt">Learn More</a>
+						</footer></article></div> -->
+			</section>
+            <!-- Footer --><footer id="footer"><div class="inner">
+
+					<h2>Contact Me</h2>
+
+					<!-- <form action="#" method="post">
+
+						<div class="field half first">
+							<label for="name">Name</label>
+							<input name="name" id="name" type="text" placeholder="Name"></div>
+						<div class="field half">
+							<label for="email">Email</label>
+							<input name="email" id="email" type="email" placeholder="Email"></div>
+						<div class="field">
+							<label for="message">Message</label>
+							<textarea name="message" id="message" rows="6" placeholder="Message"></textarea></div>
+						<ul class="actions"><li><input value="Send Message" class="button alt" type="submit"></li>
+						</ul></form> -->
+
+                        <form action="https://formspree.io/f/gearhartcomposer@gmail.com" method="POST">
+
+    <div class="field half first">
+        <label for="name">Name</label>
+        <input name="name" id="name" type="text" placeholder="Name" required>
+    </div>
+    
+    <div class="field half">
+        <label for="email">Email</label>
+        <input name="_replyto" id="email" type="email" placeholder="Email" required>
+    </div>
+    
+    <div class="field">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="6" placeholder="Message" required></textarea>
+    </div>
+    
+    <ul class="actions">
+        <li><input value="Send Message" class="button alt" type="submit"></li>
+    </ul>
+    
+</form>
+
+					<ul class="icons"><li><a href="https://x.com/jakekgearhart" target="_blank" class="icon round fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/jake.gearhart.16/" target="_blank" class="icon round fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="https://www.instagram.com/jakekgearhart/" target="_blank" class="icon round fa-instagram"><span class="label">Instagram</span></a></li>
+					</ul></div>
+			<!-- </footer><div class="copyright">
+			Site made with: <a href="https://templated.live/">Templated</a> Distributed by <a href="https://themewagon.com/">ThemeWagon</a> -->
+		</div>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.scrolly.min.js"></script><script src="assets/js/jquery.scrollex.min.js"></script><script src="assets/js/skel.min.js"></script><script src="assets/js/util.js"></script><script src="assets/js/main.js"></script></body></html>
+
