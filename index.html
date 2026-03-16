@@ -1,0 +1,722 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jake Gearhart – Composer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /* ── Tokens ── */
+        :root {
+            --accent: #F64747;
+            --w075: rgba(255, 255, 255, .075);
+            --w15: rgba(255, 255, 255, .15);
+            --w25: rgba(255, 255, 255, .25);
+            --w50: rgba(255, 255, 255, .5);
+            --r: 4px;
+            --fade-in: calc(1s / 3);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        /* ── Base ── */
+        body {
+            background: #1b1b1b;
+            color: rgba(255, 255, 255, .75);
+            font: 300 13pt / 1.65 "Open Sans", Arial, sans-serif;
+            min-width: 320px;
+            margin: 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        strong,
+        b {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        p {
+            margin: 0 0 2em;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 0 0 1em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        h2 {
+            font-size: 1.75em;
+        }
+
+        .inner {
+            width: min(60em, 90%);
+        }
+
+        /* ── Shared: all fullscreen sections ── */
+        #banner,
+        .post {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: center / cover no-repeat fixed;
+            min-height: 100svh;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Shared: dark overlay */
+        #banner::before,
+        .post::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #000;
+            opacity: .45;
+            z-index: 1;
+        }
+
+        /* Shared: content above overlay */
+        #banner .inner,
+        .post .inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── Banner: entrance animations ── */
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: scale(.99);
+            }
+        }
+
+        @keyframes darken {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: .45;
+            }
+        }
+
+        #banner::before {
+            animation: darken calc(var(--fade-in) * 3) ease calc(var(--fade-in) * 1.25) both;
+        }
+
+        #banner .inner {
+            animation: reveal var(--fade-in) ease calc(var(--fade-in) * 0.1) both;
+        }
+
+        #banner h1,
+        #banner h2 {
+            font-family: "Montserrat", sans-serif;
+            color: rgba(255, 255, 255, .75);
+            text-shadow: -2px -2px 0 rgba(0, 0, 0, .125);
+            text-transform: none;
+            line-height: 1.1;
+            margin-bottom: .25em;
+        }
+
+        #banner h1 {
+            font-size: clamp(2rem, 10vw, 7em);
+        }
+
+        #banner h2 {
+            font-size: 2em;
+        }
+
+        @keyframes more-bounce {
+            to {
+                bottom: 2em;
+            }
+        }
+
+        #banner .more {
+            animation: more-bounce .75s ease-out 3s forwards;
+            background: var(--w15);
+            border: 0;
+            border-radius: 100%;
+            bottom: -3em;
+            color: rgba(255, 255, 255, .75);
+            display: block;
+            height: 3em;
+            width: 3em;
+            left: 50%;
+            margin-left: -1.5em;
+            overflow: hidden;
+            position: absolute;
+            text-indent: 3em;
+            white-space: nowrap;
+            text-decoration: none;
+            z-index: 2;
+        }
+
+        #banner .more::before {
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            text-transform: none !important;
+            content: '\f107';
+            color: #fff;
+            font-size: 2em;
+            position: absolute;
+            right: .425em;
+            bottom: -.075em;
+        }
+
+        #banner .more:hover {
+            background: none;
+            box-shadow: 0 0 1px 0 var(--w50);
+        }
+
+        /* Section background images */
+        #banner {
+            background-image: url(images/banner.jpg);
+        }
+
+        #one {
+            background-image: url(images/banner2.jpg);
+        }
+
+        #two {
+            background-size: contain;
+            background-color: rgb(223, 223, 223);
+        }
+
+        /* Score reveal overlay */
+        .score-overlay {
+            position: absolute;
+            inset: 0;
+            background: center / contain no-repeat fixed;
+            clip-path: inset(0 100% 0 0);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Box ── */
+        .box {
+            background: rgba(0, 0, 0, .5);
+            border-radius: var(--r);
+            overflow: hidden;
+            padding: 4em;
+        }
+
+        .box> :last-child {
+            margin-bottom: 0;
+        }
+
+        .box header h2 {
+            margin: 0 0 .5em;
+        }
+
+        /* ── Buttons ── */
+        :is(input[type="submit"], button, .button) {
+            appearance: none;
+            background: #5a5a5a;
+            border: 0;
+            border-radius: var(--r);
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font: 600 .9em/3em inherit;
+            /* letter-spacing: .1em; */
+            /* padding: 0 2.25em; */
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: background .2s;
+        }
+
+        #playPause {
+            width: 100px;
+            height: 40px;
+        }
+
+        :is(input[type="submit"], button, .button):hover {
+            background: #676767;
+        }
+
+        :is(input[type="submit"], button, .button):active {
+            background: #4d4d4d;
+        }
+
+        .button.alt {
+            background: transparent;
+            border: 1px solid var(--w25);
+            border-radius: 2em;
+            letter-spacing: .2em;
+            padding: 0 3em;
+            height: 2.75em;
+            line-height: 2.75em;
+            transition: background .2s, border-color .2s;
+        }
+
+        .button.alt:hover {
+            background: var(--w075);
+            border-color: var(--w25);
+        }
+
+        /* ── Form — two-column grid, full-width for message + submit ── */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5em;
+            margin: 0 0 2em;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+        }
+
+        .field label {
+            padding-left: 1em;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 300;
+            color: #fff;
+        }
+
+        :is(input[type="text"], input[type="email"], textarea) {
+            appearance: none;
+            background: var(--w075);
+            border: 1px solid var(--w25);
+            border-radius: var(--r);
+            color: #fff;
+            display: block;
+            font: inherit;
+            outline: 0;
+            padding: 0 1em;
+            width: 100%;
+        }
+
+        :is(input[type="text"], input[type="email"]) {
+            height: 2.75em;
+        }
+
+        textarea {
+            padding: .75em 1em;
+        }
+
+        :is(input[type="text"], input[type="email"], textarea):focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        ::placeholder {
+            color: var(--w50);
+            opacity: 1;
+        }
+
+        /* ── Icon lists (actions + social icons share structure) ── */
+        .icon {
+            text-decoration: none;
+        }
+
+        .icon::before {
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            text-transform: none !important;
+        }
+
+        .icon>.label {
+            display: none;
+        }
+
+        ul.icons {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            margin-top: 1.5em;
+        }
+
+        /* ── Footer ── */
+        #footer {
+            background: #020E1D;
+            color: #fdd1d1;
+            padding: 6em 0 4em;
+            text-align: center;
+        }
+
+        #footer .inner {
+            margin: 0 auto;
+        }
+
+        #footer h2 {
+            margin-bottom: 2em;
+        }
+
+        #footer a {
+            color: #fff;
+        }
+
+        #footer form {
+            text-align: left;
+        }
+
+        #footer :is(input[type="text"], input[type="email"], textarea):focus {
+            border-color: #fff;
+            box-shadow: 0 0 0 1px #fff;
+        }
+
+        .icon.round {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--w15);
+            border-radius: 100%;
+            height: 4em;
+            width: 4em;
+            color: #fff;
+            transition: background .2s, box-shadow .2s;
+        }
+
+        .icon.round::before {
+            font-size: 1.5em;
+        }
+
+        .icon.round:hover {
+            background: none;
+            box-shadow: 0 0 0 1px var(--w25);
+            color: var(--w25);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Banner ── -->
+    <section id="banner">
+        <div class="inner">
+            <header>
+                <h1>Jake Gearhart</h1>
+                <h2>Composer</h2>
+            </header>
+        </div>
+        <a href="#one" class="more">Learn More</a>
+    </section>
+
+    <!-- ── About ── -->
+    <section id="one" class="post">
+        <div class="inner">
+            <article class="box">
+                <header>
+                    <h2>About</h2>
+                </header>
+                <div class="content">
+                    <p>Jake Gearhart is a Chicago-based composer specializing in writing music for film, games, and other media. He is currently attending the MFA Composition for the Screen program at Columbia College in Chicago, and received a Bachelors Degree in Music Composition with a minor in Computer Science from the same institution.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ── Music Player ── -->
+    <section id="two" class="post">
+        <!-- score overlay inserted by JS -->
+        <div class="inner">
+            <article class="box">
+                <header>
+                    <h2>M56</h2>
+                </header>
+                <div class="content">
+                    <div id="waveform" style="background:rgba(0,0,0,.05);border-radius:4px;margin-bottom:1rem;"></div>
+                    <button id="playPause">Play</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+
+    <section id="one" class="post">
+        <div class="inner">
+            <article class="box">
+                <header>
+                    <h2>Credits</h2>
+                </header>
+                <div class="content">
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>Contact Me</h2>
+
+            <form action="https://formspree.io/f/gearhartcomposer@gmail.com" method="POST">
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input name="name" id="name" type="text" placeholder="Name" required>
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input name="_replyto" id="email" type="email" placeholder="Email" required>
+                </div>
+                <div class="field full">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" rows="6" placeholder="Message" required></textarea>
+                </div>
+                <div class="field full">
+                    <input value="Send Message" class="button alt" type="submit">
+                </div>
+            </form>
+
+            <ul class="icons">
+                <li><a href="https://x.com/jakekgearhart" target="_blank" class="icon round fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="https://www.facebook.com/jake.gearhart.16/" target="_blank" class="icon round fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.instagram.com/jakekgearhart/" target="_blank" class="icon round fa-instagram"><span class="label">Instagram</span></a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script type="module">
+        import WaveSurfer from 'https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js';
+
+        // ── Config — edit per piece ───────────────────────────────────────
+        const SCORE = {
+            pages: 3,
+            audio: 'music/example.mp3',
+            keyframes: {
+                0: 0,
+                1: 4 * (60 / 186),
+                2: 8 * (60 / 186),
+                3: 12 * (60 / 186),
+                4: 16 * (60 / 186),
+                5: 20 * (60 / 186),
+                6: 28 * (60 / 186),
+                7: 32 * (60 / 186),
+                8: 36 * (60 / 186),
+                9: 40 * (60 / 186),
+                10: 44 * (60 / 186),
+                11: 12 * 4 * (60 / 186),
+                12: 13 * 4 * (60 / 186),
+                13: 14 * 4 * (60 / 186),
+                14: 15 * 4 * (60 / 186),
+                15: 16 * 4 * (60 / 186),
+                16: 17 * 4 * (60 / 186),
+                17: 18 * 4 * (60 / 186),
+                18: 19 * 4 * (60 / 186),
+                19: 20 * 4 * (60 / 186),
+                20: 21 * 4 * (60 / 186),
+                21: 22 * 4 * (60 / 186),
+                22: 23 * 4 * (60 / 186),
+                23: 24 * 4 * (60 / 186),
+                24: 25 * 4 * (60 / 186),
+                25: 26 * 4 * (60 / 186),
+                26: 27 * 4 * (60 / 186),
+                27: 28 * 4 * (60 / 186),
+                28: 29 * 4 * (60 / 186),
+                29: 30 * 4 * (60 / 186),
+                30: 31 * 4 * (60 / 186),
+                31: 32 * 4 * (60 / 186),
+                32: 33 * 4 * (60 / 186),
+                33: 34 * 4 * (60 / 186),
+                34: 35 * 4 * (60 / 186),
+                35: 36 * 4 * (60 / 186),
+                36: 37 * 4 * (60 / 186),
+                37: 38 * 4 * (60 / 186),
+                38: 39 * 4 * (60 / 186),
+                39: 40 * 4 * (60 / 186),
+                40: 41 * 4 * (60 / 186),
+                41: 42 * 4 * (60 / 186),
+                42: 43 * 4 * (60 / 186),
+            },
+        };
+        // ─────────────────────────────────────────────────────────────────
+
+        const FOREGROUND_CLASSES = new Set([
+            'Note', 'LedgerLine', 'Beam', 'Stem', 'Accidental',
+            'SlurSegment', 'TieSegment', 'Rest', 'NoteDot',
+            'HairpinSegment', 'Dynamic', 'Hook', 'Articulation',
+            'TremoloSingleChord', 'Tuplet', 'PlayTechAnnotation',
+            'GlissandoSegment', 'HarpPedalDiagram', 'StaffText', 'Clef'
+        ]);
+
+        function isForeground(el) {
+            const cls = el.getAttribute?.('class') ?? '';
+            return cls.trim().split(/\s+/).some(c => FOREGROUND_CLASSES.has(c));
+        }
+
+        function extractMetadata(text) {
+            const viewBoxNums = text.match(/viewBox=["']([\d.\s]+)["']/)?.[1].trim().split(/\s+/);
+            const svgWidth = parseFloat(viewBoxNums?.[2]);
+            const barlineX = [];
+            for (const m of text.matchAll(/class=["']BarLine["'][^>]*points=["']([^"']+)["']/g)) {
+                const x = parseFloat(m[1].trim().split(/[\s,]+/)[0]);
+                if (barlineX.includes(x)) break;
+                barlineX.push(x);
+            }
+            return { svgWidth, barlineX: barlineX.sort((a, b) => a - b) };
+        }
+
+        function splitSVG(text) {
+            const parser = new DOMParser();
+            const serializer = new XMLSerializer();
+            const bgDoc = parser.parseFromString(text, 'image/svg+xml');
+            const fgDoc = parser.parseFromString(text, 'image/svg+xml');
+            [...bgDoc.querySelectorAll('*')].filter(isForeground).forEach(el => el.remove());
+            [...fgDoc.querySelectorAll('*')].filter(el => el.getAttribute?.('class') && !isForeground(el)).forEach(el => el.remove());
+            const toUri = doc => 'data:image/svg+xml,' + encodeURIComponent(serializer.serializeToString(doc));
+            return { bgUri: toUri(bgDoc), fgUri: toUri(fgDoc) };
+        }
+
+        async function fetchText(url) {
+            return (await fetch(url)).text();
+        }
+
+        async function loadMetadata(numPages) {
+            const pages = [];
+            for (let i = 0; i < numPages; i++) {
+                pages.push(extractMetadata(await fetchText(`images/score/${i + 1}.svg`)));
+            }
+            return pages;
+        }
+
+        async function loadPage(i) {
+            const text = await fetchText(`images/score/${i + 1}.svg`);
+            return { ...extractMetadata(text), ...splitSVG(text) };
+        }
+
+        // ── Build flat barline list, skipping first barline of pages 2+
+        // and last barline of non-final pages ──
+        function buildBarlines(meta) {
+            const barlines = [];
+            for (const [pageIdx, m] of meta.entries()) {
+                const isLastPage = pageIdx === meta.length - 1;
+                const start = pageIdx === 0 ? 0 : 1;
+                const end = isLastPage ? m.barlineX.length : m.barlineX.length - 1;
+                for (let j = start; j < end; j++) {
+                    barlines.push({ pageIdx, x: m.barlineX[j] });
+                }
+            }
+            return barlines;
+        }
+
+        function getStateAtTime(barlines, keyframes, t) {
+            const times = Object.entries(keyframes)
+                .map(([i, t]) => ({ i: +i, t }))
+                .sort((a, b) => a.t - b.t);
+
+            if (t <= times[0].t) return barlines[times[0].i];
+            if (t >= times[times.length - 1].t) return barlines[times[times.length - 1].i];
+
+            for (let k = 1; k < times.length; k++) {
+                const a = times[k - 1], b = times[k];
+                if (t <= b.t) {
+                    const pct = (t - a.t) / (b.t - a.t);
+                    const ba = barlines[a.i], bb = barlines[b.i];
+                    // Page boundary: instant flip, interpolate within new page toward next barline
+                    if (ba.pageIdx !== bb.pageIdx) {
+                        const c = times[k + 1];
+                        if (!c) return bb;
+                        const pct2 = (t - b.t) / (c.t - b.t);
+                        return { pageIdx: bb.pageIdx, x: bb.x + (barlines[b.i + 1].x - bb.x) * pct2 };
+                    }
+                    return { pageIdx: ba.pageIdx, x: ba.x + (bb.x - ba.x) * pct };
+                }
+            }
+        }
+
+        // ── Page cache ──
+        const pageCache = new Map();
+        async function getPage(i) {
+            if (!pageCache.has(i)) pageCache.set(i, loadPage(i));
+            return pageCache.get(i);
+        }
+        function evictPage(i) { pageCache.delete(i); }
+
+        // ── Init ──
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        const twoSection = document.getElementById('two');
+        const overlay = Object.assign(document.createElement('div'), { className: 'score-overlay' });
+        twoSection.prepend(overlay);
+
+        const meta = await loadMetadata(SCORE.pages);
+        const barlines = buildBarlines(meta);
+
+        let currentPageIdx = -1;
+        let pageLoading = false;
+
+        async function setPage(i) {
+            if (i === currentPageIdx || pageLoading) return;
+            pageLoading = true;
+            const prev = currentPageIdx;
+            currentPageIdx = i;
+            const page = await getPage(i);
+            twoSection.style.backgroundImage = `url("${page.bgUri}")`;
+            overlay.style.backgroundImage = `url("${page.fgUri}")`;
+            evictPage(prev);
+            pageLoading = false;
+        }
+
+        async function updateOverlay(t) {
+            const { pageIdx, x } = getStateAtTime(barlines, SCORE.keyframes, t);
+            await setPage(pageIdx);
+            overlay.style.clipPath = `inset(0 ${Math.max(0, (1 - x / meta[pageIdx].svgWidth) * 100).toFixed(3)}% 0 0)`;
+        }
+
+        await setPage(0);
+        updateOverlay(0);
+
+        // ── WaveSurfer ──
+        const wavesurfer = WaveSurfer.create({
+            container: '#waveform',
+            waveColor: '#aaaaaa',
+            progressColor: '#ffffff',
+            url: SCORE.audio,
+            height: 100,
+            responsive: true,
+            borderRadius: 3,
+        });
+
+        const playBtn = document.getElementById('playPause');
+        playBtn.addEventListener('click', () => wavesurfer.playPause());
+        wavesurfer.on('play', () => playBtn.textContent = 'Pause');
+        wavesurfer.on('pause', () => playBtn.textContent = 'Play');
+        wavesurfer.on('timeupdate', (t) => updateOverlay(t));
+        wavesurfer.on('seeking', (t) => updateOverlay(t));
+    </script>
+
+</body>
+
+</html>
